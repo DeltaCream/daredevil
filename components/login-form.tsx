@@ -70,6 +70,7 @@ export function LoginForm({
                                     id="password"
                                     name="password"
                                     type="password"
+                                    placeholder="********"
                                     required
                                 />
                             </div>

@@ -11,7 +11,14 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+    Tabs,
+    TabsContent,
+    TabsContents,
+    TabsList,
+    TabsTrigger,
+} from "@/components/ui/shadcn-io/tabs"; //with motion (https://www.shadcn.io/components/interactive/tabs)
 import { LoginForm } from "@/components/login-form";
 
 export default function Page() {
@@ -23,12 +30,14 @@ export default function Page() {
                         <TabsTrigger value="username-tab">Username</TabsTrigger>
                         <TabsTrigger value="email-tab">Email</TabsTrigger>
                     </TabsList>
-                    <TabsContent value="username-tab">
-                        <LoginForm className="username-tab" />
-                    </TabsContent>
-                    <TabsContent value="email-tab">
-                        <LoginForm className="email-tab" />
-                    </TabsContent>
+                    <TabsContents>
+                        <TabsContent value="username-tab">
+                            <LoginForm className="username-tab" />
+                        </TabsContent>
+                        <TabsContent value="email-tab">
+                            <LoginForm className="email-tab" />
+                        </TabsContent>
+                    </TabsContents>
                 </Tabs>
             </div>
         </div>

@@ -1,6 +1,5 @@
-"use client";
 import { AppSidebar } from "@/components/app-sidebar";
-import { ChartAreaInteractive } from "@/components/chart-area-interactive";
+import { ChartAreaInteractive, description } from "@/components/chart-area-interactive";
 import { DataTable } from "@/components/data-table";
 import { SectionCards } from "@/components/section-cards";
 import { SiteHeader } from "@/components/site-header";
@@ -9,21 +8,8 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import data from "./data.json";
 
 import { faker } from "@faker-js/faker";
-import {
-    DragEndEvent,
-    KanbanBoard,
-    KanbanCard,
-    KanbanCards,
-    KanbanHeader,
-    KanbanProvider,
-} from "@/components/ui/shadcn-io/kanban";
-import { useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-    Status,
-    StatusIndicator,
-    StatusLabel,
-} from "@/components/ui/shadcn-io/status";
+
+import DashboardKanban from "@/components/dashboard-kanban";
 
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -32,9 +18,24 @@ type StatusType = "online" | "offline" | "maintenance" | "degraded";
 type Column = {
     id: string;
     name: string;
-    color: string;
+    // color: string;
     status: StatusType;
 };
+
+type User = {
+    id: string;
+    name: string;
+    image: string;
+};
+
+type Feature = {
+    id: string;
+    name: string;
+    remarks: string;
+    column: string;
+    owner: User;
+};
+
 // columns are already mapped to valid statuses, so this mapping is no longer needed
 
 var columns = [
@@ -86,8 +87,31 @@ const exampleFeatures = Array.from({ length: 20 })
         owner: faker.helpers.arrayElement(users),
     }));
 
+// const exampleCardData = Array.from({ length: 20 })
+//     .fill(null)
+//     .map(() => ({
+//         description: faker.lorem.sentence(),
+//         title: capitalize(faker.lorem.sentence()),
+//         footer: faker.lorem.sentence(),
+//         subfooter: faker.lorem.sentence(),
+//     }));
+
+const exampleCardData = [
+    {
+        title: "Employees",
+        description: "Number of employees present",
+        content: "20",
+        footer: faker.number.float({ min: 0, max: 100, fractionDigits: 2}) + "%" + " of total employees",
+    },
+    {
+        title: "Supervisors",
+        description: "Number of supervisors present",
+        content: "5",
+        footer: faker.number.float({ min: 0, max: 100, fractionDigits: 2}) + "%" + " of total supervisors",
+    },
+]
+
 export default function Page() {
-    const [features, setFeatures] = useState(exampleFeatures);
     //number of present employees (card)
     //number of present supervisors (card)
 
@@ -97,41 +121,6 @@ export default function Page() {
 
     //add graphs containing the number of available employees over the course of the day
     //or use developer velocity (middle if on track, high if early, low if late)
-
-    const handleDragEnd = (event: DragEndEvent) => {
-        const { active, over } = event;
-
-        if (!over) {
-            return;
-        }
-
-        const status = columns.find(({ id }) => id === over.id);
-
-        if (!status) {
-            return;
-        }
-
-        setFeatures(
-            features.map((feature) => {
-                if (feature.id === active.id) {
-                    return { ...feature, column: status.id };
-                }
-
-                return feature;
-            })
-        );
-    };
-
-    const dateFormatter = new Intl.DateTimeFormat("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-    });
-
-    const shortDateFormatter = new Intl.DateTimeFormat("en-US", {
-        month: "short",
-        day: "numeric",
-    });
 
     return (
         <SidebarProvider
@@ -148,94 +137,16 @@ export default function Page() {
                 <div className="flex flex-1 flex-col">
                     <div className="@container/main flex flex-1 flex-col gap-2">
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                            <SectionCards />
+                            <SectionCards content={exampleCardData}/>
                             {/* <div className="px-4 lg:px-6">
                               <ChartAreaInteractive />
                             </div> */}
                             {/* <DataTable data={data} /> */}
-                            <KanbanProvider
-                                columns={columns}
-                                data={features}
-                                onDataChange={setFeatures}
-                            >
-                                {(column) => (
-                                    <KanbanBoard id={column.id} key={column.id}>
-                                        <KanbanHeader>
-                                            {/* <div className="flex items-center gap-2"> */}
-                                                {/* <div
-                                                    className="h-2 w-2 rounded-full"
-                                                    style={{
-                                                        backgroundColor:
-                                                            column.color,
-                                                    }}
-                                                />
-                                                <span>{column.name}</span> */}
-                                                <Status
-                                                    status={column.status as StatusType} //choices are online (green), offline (red), maintenance (blue), and degraded (orange)
-                                                >
-                                                    <StatusIndicator />
-                                                    <StatusLabel>
-                                                        {column.name}
-                                                    </StatusLabel>
-                                                </Status>
-                                            {/* </div> */}
-                                        </KanbanHeader>
-                                        <KanbanCards id={column.id}>
-                                            {(
-                                                feature: (typeof features)[number]
-                                            ) => (
-                                                <KanbanCard
-                                                    column={column.id}
-                                                    id={feature.id}
-                                                    key={feature.id}
-                                                    name={feature.name}
-                                                >
-                                                    <div className="flex items-start justify-between gap-2">
-                                                        <div className="flex flex-col gap-1">
-                                                            <p className="m-0 flex-1 font-medium text-sm">
-                                                                {feature.name}
-                                                            </p>
-                                                        </div>
-                                                        {feature.owner && (
-                                                            <Avatar className="h-4 w-4 shrink-0">
-                                                                <AvatarImage
-                                                                    src={
-                                                                        feature
-                                                                            .owner
-                                                                            .image
-                                                                    }
-                                                                />
-                                                                <AvatarFallback>
-                                                                    {feature.owner.name?.slice(
-                                                                        0,
-                                                                        2
-                                                                    )}
-                                                                </AvatarFallback>
-                                                            </Avatar>
-                                                        )}
-                                                    </div>
-                                                    <p className= "m-0 text-xs"
-                                                    //"m-0 text-muted-foreground text-xs"
-                                                    >
-                                                        {/* {shortDateFormatter.format(
-                                                            feature.startAt
-                                                        )}{" "}
-                                                        -{" "}
-                                                        {dateFormatter.format(
-                                                            feature.endAt
-                                                        )} */}
-                                                        {feature.remarks}
-                                                    </p>
-                                                </KanbanCard>
-                                            )}
-                                        </KanbanCards>
-                                    </KanbanBoard>
-                                )}
-                            </KanbanProvider>
+                            <DashboardKanban columns={columns as Column[]} users={users as User[]} features={exampleFeatures as Feature[]} />
                         </div>
                     </div>
                 </div>
-            </SidebarInset>
+            </SidebarInset> 
         </SidebarProvider>
     );
 }
