@@ -43,6 +43,12 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+/*
+default theme: Zinc
+(only things changed by accent/color: primary, primary-foreground, ring, sidebar-primary, sidebar-primary-foreground, sidebar-ring)
+differences between themes that conflict with accent/color changes: (all of the above, depending on the theme)
+*/
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
