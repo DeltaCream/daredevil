@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Circle } from "lucide-react";
 import { useTheme } from "next-themes";
-import { applyThemeClass } from "./theme-manager";
+import { applyAccentClass } from "./theme-manager";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +13,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export function ThemeSwitcher() {
+export function AccentSwitcher() {
     const { setTheme } = useTheme();
     const [mounted, setMounted] = React.useState(false);
     React.useEffect(() => setMounted(true), []);
@@ -23,7 +23,8 @@ export function ThemeSwitcher() {
             <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon">
                     <Circle
-                        className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90 bg-accent"
+                        className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"
+                        style={{ color: "var(--color-accent)" }}
                     />
                     <Circle
                         className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"
@@ -33,20 +34,29 @@ export function ThemeSwitcher() {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => applyThemeClass("neutral")}>
-                    Neutral
+                <DropdownMenuItem onClick={() => applyAccentClass("default")}>
+                    Default
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => applyThemeClass("stone")}>
-                    Stone
+                <DropdownMenuItem onClick={() => applyAccentClass("red")}>
+                    Red
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => applyThemeClass("zinc")}>
-                    Zinc
+                <DropdownMenuItem onClick={() => applyAccentClass("rose")}>
+                    Rose
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => applyThemeClass("gray")}>
-                    Gray
+                <DropdownMenuItem onClick={() => applyAccentClass("orange")}>
+                    Orange
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => applyThemeClass("slate")}>
-                    Slate
+                <DropdownMenuItem onClick={() => applyAccentClass("green")}>
+                    Green
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => applyAccentClass("blue")}>
+                    Blue
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => applyAccentClass("yellow")}>
+                    Yellow
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => applyAccentClass("violet")}>
+                    Violet
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

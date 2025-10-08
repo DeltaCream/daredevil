@@ -16,6 +16,8 @@ import {
   IconReport,
   IconSearch,
   IconSettings,
+  IconTriangle,
+  IconTriangleFilled,
   IconUsers,
 } from "@tabler/icons-react"
 
@@ -161,8 +163,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
               <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Marlow Overseer</span>
+                <IconTriangleFilled className="!size-5" />
+                <span className="text-base font-semibold">DeltaX</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
