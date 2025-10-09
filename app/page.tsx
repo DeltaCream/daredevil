@@ -129,14 +129,14 @@ const Example = () => (
         slot="media"
         src="https://stream.mux.com/DS00Spx1CV902MCtPj5WknGlR102V5HFkDe/high.mp4"
       />
-      <VideoPlayerControlBar>
-        <VideoPlayerPlayButton />
-        <VideoPlayerSeekBackwardButton />
-        <VideoPlayerSeekForwardButton />
-        <VideoPlayerTimeRange />
-        <VideoPlayerTimeDisplay showDuration />
-        <VideoPlayerMuteButton />
-        <VideoPlayerVolumeRange />
+      <VideoPlayerControlBar key={'video-player-control-bar'}>
+        <VideoPlayerPlayButton key={'video-player-play-button'}/>
+        <VideoPlayerSeekBackwardButton key={'video-player-seek-backward-button'}/>
+        <VideoPlayerSeekForwardButton key={'video-player-seek-forward-button'}/>
+        <VideoPlayerTimeRange key={'video-player-time-range'}/>
+        <VideoPlayerTimeDisplay showDuration key={'video-player-duration'}/>
+        <VideoPlayerMuteButton key={'video-player-mute-button'}/>
+        <VideoPlayerVolumeRange key={'video-player-volume-range'}/>
       </VideoPlayerControlBar>
     </VideoPlayer>
   </div>

@@ -10,6 +10,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { loginEmailAction, loginUsernameAction } from "@/lib/actions";
 import { cn } from "@/lib/utils";
+import { MailIcon, UserIcon } from "lucide-react";
+import { InputGroup, InputGroupInput, InputGroupAddon } from "./ui/input-group";
 
 export function LoginForm({
     className,
@@ -36,23 +38,35 @@ export function LoginForm({
                                         <Label htmlFor="username">
                                             Username
                                         </Label>
-                                        <Input
+                                        {/* <Input
                                             id="username"
                                             name="username"
                                             type="text"
                                             placeholder="DeltaCream"
                                             required
-                                        />
+                                        /> */}
+                                        <InputGroup>
+                                            <InputGroupInput id="email" type="email" placeholder="Enter your email, e.g. m@example.com" required />
+                                            <InputGroupAddon>
+                                            <UserIcon />
+                                            </InputGroupAddon>
+                                        </InputGroup>
                                     </>
                                 ) : (
                                     <>
                                         <Label htmlFor="email">Email</Label>
-                                        <Input
+                                        {/* <Input
                                             id="email"
                                             type="email"
                                             placeholder="m@example.com"
                                             required
-                                        />
+                                        /> */}
+                                        <InputGroup>
+                                            <InputGroupInput id="email" type="email" placeholder="Enter your email, e.g. m@example.com" required />
+                                            <InputGroupAddon>
+                                            <MailIcon />
+                                            </InputGroupAddon>
+                                        </InputGroup>
                                     </>
                                 )}
                             </div>
