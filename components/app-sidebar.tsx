@@ -4,6 +4,7 @@ import * as React from "react"
 import {
   IconCamera,
   IconChartBar,
+  IconCircleFilled,
   IconDashboard,
   IconDatabase,
   IconFileAi,
@@ -34,6 +35,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { useState } from "react"
+import Link from "next/link"
 
 const data = {
   user: {
@@ -153,6 +156,21 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [sidebarHeader, setSidebarHeader] = useState(() => {
+    // Expose the header to the client bundle via NEXT_PUBLIC_ prefix so
+    // the value used during SSR matches the value available to the client
+    // bundle and avoids hydration mismatches.
+    const header = process.env.NEXT_PUBLIC_SIDEBAR_HEADER || "DeltaX";
+    return header;
+  });
+  const [sidebarIcon, setSidebarIcon]= useState(() => {
+    // Expose the header to the client bundle via NEXT_PUBLIC_ prefix so
+    // the value used during SSR matches the value available to the client
+    // bundle and avoids hydration mismatches.
+    const header = process.env.NEXT_PUBLIC_ICON_SHAPE || "triangle";
+    return header;
+  });
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -162,10 +180,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="#">
-                <IconTriangleFilled className="!size-5" />
-                <span className="text-base font-semibold">DeltaX</span>
-              </a>
+              <Link href="/">
+                  {sidebarIcon === "triangle" ? (
+                    <IconTriangleFilled className="!size-5" />
+                  ) : (
+                    <IconInnerShadowTop className="!size-5" />
+                    // <IconCircleFilled className="!size-5" />
+                  )}
+                <span className="text-base font-semibold">{sidebarHeader}</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

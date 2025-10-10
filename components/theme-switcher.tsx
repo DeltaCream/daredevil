@@ -12,6 +12,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { IconCircleFilled } from "@tabler/icons-react";
 
 export function ThemeSwitcher() {
     const { setTheme } = useTheme();
@@ -22,12 +23,13 @@ export function ThemeSwitcher() {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon">
-                    <Circle
-                        className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90 bg-accent"
+                    <IconCircleFilled
+                        className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90 fill-accent"
+                        // style={{ color: "var(--color-accent)" }}
                     />
-                    <Circle
-                        className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"
-                        style={{ color: "var(--color-accent)" }}
+                    <IconCircleFilled
+                        className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0 fill-accent"
+                        // style={{ color: "var(--color-accent)" }}
                     />
                     <span className="sr-only">Toggle theme</span>
                 </Button>

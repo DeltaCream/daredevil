@@ -12,6 +12,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { IconCircleFilled } from "@tabler/icons-react";
 
 export function AccentSwitcher() {
     const { setTheme } = useTheme();
@@ -22,13 +23,13 @@ export function AccentSwitcher() {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon">
-                    <Circle
-                        className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"
-                        style={{ color: "var(--color-accent)" }}
+                    <IconCircleFilled
+                        className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90 fill-primary"
+                        // style={{ color: "var(--color-primary)" }}
                     />
-                    <Circle
-                        className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"
-                        style={{ color: "var(--color-accent)" }}
+                    <IconCircleFilled
+                        className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0 fill-primary"
+                        // style={{ color: "var(--color-primary)" }}
                     />
                     <span className="sr-only">Toggle theme</span>
                 </Button>

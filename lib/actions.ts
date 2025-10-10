@@ -1,11 +1,12 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function revalidate() {
-  revalidatePath("/");
+  revalidatePath("/dashboard");
 }
 
 export async function registerAction(formData: FormData) {
@@ -86,7 +87,8 @@ export async function loginUsernameAction(formData: FormData) {
     console.error("Error response:", err);
   }
 
-  revalidate();
+  // revalidate();
+  redirect("/dashboard");
 }
 
 export async function loginEmailAction(formData: FormData) {
@@ -134,5 +136,6 @@ export async function loginEmailAction(formData: FormData) {
     console.error("Error response:", err);
   }
 
-  revalidate();
+  // revalidate();
+  redirect("/dashboard");
 }

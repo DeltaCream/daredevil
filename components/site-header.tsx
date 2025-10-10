@@ -4,6 +4,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar"
 import { ModeToggle } from "@/components/mode-toggle"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 import { AccentSwitcher } from "./accent-switcher"
+import Link from "next/link"
 
 export function SiteHeader() {
   return (
@@ -20,14 +21,14 @@ export function SiteHeader() {
           <ThemeSwitcher />
           <AccentSwitcher />
           <Button variant="ghost" asChild size="sm" className="hidden sm:flex">
-            <a
+            <Link
               href="https://github.com/shadcn-ui/ui/tree/main/apps/v4/app/(examples)/dashboard"
               rel="noopener noreferrer"
               target="_blank"
               className="dark:text-foreground"
             >
               GitHub
-            </a>
+            </Link>
           </Button>
         </div>
       </div>

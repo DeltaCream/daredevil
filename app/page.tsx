@@ -2,11 +2,14 @@
 
 import {
   SiApple,
+  SiBluesky,
+  SiDiscord,
   SiFacebook,
   SiGithub,
   SiGoogle,
   SiInstagram,
-  SiX,
+  SiReddit,
+  SiTelegram,
   SiYoutube,
 } from '@icons-pack/react-simple-icons';
 import {
@@ -34,6 +37,7 @@ import {
   VideoPlayerVolumeRange,
 } from '@/components/ui/shadcn-io/video-player';
 import Link from 'next/link';
+import { IconBrandTwitterFilled } from '@tabler/icons-react';
 
 const logos = [
   {
@@ -52,9 +56,9 @@ const logos = [
     url: 'https://google.com',
   },
   {
-    name: 'X',
-    icon: SiX,
-    url: 'https://x.com',
+    name: 'Twitter',
+    icon: IconBrandTwitterFilled,
+    url: 'https://twitter.com',
   },
   {
     name: 'Apple',
@@ -71,31 +75,49 @@ const logos = [
     icon: SiYoutube,
     url: 'https://youtube.com',
   },
+  {
+    name: 'Bluesky',
+    icon: SiBluesky,
+    url: 'https://bluesky.social',
+  },
+  {
+    name: 'Reddit',
+    icon: SiReddit,
+    url: 'https://reddit.com',
+  },
+  {
+    name: 'Discord',
+    icon: SiDiscord,
+    url: 'https://discord.com',
+  },
+  {
+    name: 'Telegram',
+    icon: SiTelegram,
+    url: 'https://telegram.org',
+  }
 ];
 
 const Example = () => (
   <div className="flex flex-col gap-16 px-8 py-24 text-center">
     <div className="flex flex-col items-center justify-center gap-8">
-      <Link href="#">
+      <Link href="https://github.com/DeltaCream/daredevil">
         <Announcement>
-          <AnnouncementTag>Latest</AnnouncementTag>
-          <AnnouncementTitle>Introducing blocks by Kibo UI</AnnouncementTitle>
+          <AnnouncementTag>Beta</AnnouncementTag>
+          <AnnouncementTitle>The website is undergoing many changes!</AnnouncementTitle>
         </Announcement>
       </Link>
       <h1 className="mb-0 text-balance font-medium text-6xl md:text-7xl xl:text-[5.25rem]">
-        The best way to build your website
+        The grand exploration of ideas
       </h1>
       <p className="mt-0 mb-0 text-balance text-lg text-muted-foreground">
-        Kibo UI blocks are a new way to build your website. They are a
-        collection of pre-built components that you can use to build your
-        website.
+        This is a project website which aims to create a space to share ideas with the world. It showcases various ideas and topics worth checking out.
       </p>
       <div className="flex items-center gap-2">
         <Button asChild>
-          <Link href="#">Get started</Link>
+          <Link href="/register">Get started</Link>
         </Button>
         <Button asChild variant="outline">
-          <Link className="no-underline" href="#">
+          <Link className="no-underline" href="/about">
             Learn more
           </Link>
         </Button>
@@ -103,7 +125,7 @@ const Example = () => (
     </div>
     <section className="flex flex-col items-center justify-center gap-8 rounded-xl bg-secondary py-8 pb-18">
       <p className="mb-0 text-balance font-medium text-muted-foreground">
-        Trusted by developers from leading companies
+        Present in various platforms!
       </p>
       <div className="flex size-full items-center justify-center">
         <Marquee>
@@ -121,7 +143,7 @@ const Example = () => (
         </Marquee>
       </div>
     </section>
-    <VideoPlayer className="overflow-hidden rounded-lg border">
+    <VideoPlayer className="overflow-hidden rounded-lg border" key={`video-player`}>
       <VideoPlayerContent
         crossOrigin=""
         muted

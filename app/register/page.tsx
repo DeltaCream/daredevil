@@ -1,3 +1,5 @@
+///From shadcn/ui
+
 import { RegistrationForm } from "@/components/registration-form";
 
 export default function Page() {

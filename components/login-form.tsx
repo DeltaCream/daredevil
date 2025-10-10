@@ -10,8 +10,36 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { loginEmailAction, loginUsernameAction } from "@/lib/actions";
 import { cn } from "@/lib/utils";
-import { MailIcon, UserIcon } from "lucide-react";
+import { LockKeyholeIcon, MailIcon, UserIcon } from "lucide-react";
 import { InputGroup, InputGroupInput, InputGroupAddon } from "./ui/input-group";
+import Link from "next/link";
+import {
+    FieldSet,
+    FieldLegend,
+    FieldDescription,
+    FieldGroup,
+    Field,
+    FieldLabel,
+    FieldError,
+    FieldSeparator,
+} from "./ui/field";
+
+var errorsUsername: Array<{ message?: string }> | undefined =
+[
+    // { message: "Choose another username." },
+];
+
+if (errorsUsername.length === 0) {
+    errorsUsername = undefined
+}
+
+var errorsEmail: Array<{ message?: string }> | undefined = [
+    // { message: "Enter a valid email address." },
+];
+
+if (errorsEmail.length === 0) {
+    errorsEmail = undefined
+}
 
 export function LoginForm({
     className,
@@ -19,89 +47,116 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
     const loginMethod = className?.split("-tab")[0];
     console.log(loginMethod);
-    const formAction = loginMethod === "email" ? loginEmailAction : loginUsernameAction;
+    const formAction =
+        loginMethod === "email" ? loginEmailAction : loginUsernameAction;
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
             <Card>
-                <CardHeader>
+                {/* <CardHeader> //versions 1 and 2
                     <CardTitle>Login to your account</CardTitle>
                     <CardDescription>
                         Enter your {loginMethod} below to login to your account
                     </CardDescription>
-                </CardHeader>
+                </CardHeader> */}
                 <CardContent>
                     <form action={formAction}>
-                        <div className="flex flex-col gap-6">
-                            <div className="grid gap-3">
+                        <FieldSet>
+                            <FieldLegend>Login to your account</FieldLegend>
+                            <FieldDescription>
+                                Enter your {loginMethod} below to login to your
+                                account
+                            </FieldDescription>
+                            <FieldGroup className="@container/field-group flex flex-col gap-6">
                                 {className === "username-tab" ? (
-                                    <>
-                                        <Label htmlFor="username">
-                                            Username
-                                        </Label>
-                                        {/* <Input
-                                            id="username"
-                                            name="username"
-                                            type="text"
-                                            placeholder="DeltaCream"
-                                            required
-                                        /> */}
-                                        <InputGroup>
-                                            <InputGroupInput id="email" type="email" placeholder="Enter your email, e.g. m@example.com" required />
-                                            <InputGroupAddon>
-                                            <UserIcon />
-                                            </InputGroupAddon>
-                                        </InputGroup>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Label htmlFor="email">Email</Label>
-                                        {/* <Input
-                                            id="email"
-                                            type="email"
-                                            placeholder="m@example.com"
-                                            required
-                                        /> */}
-                                        <InputGroup>
-                                            <InputGroupInput id="email" type="email" placeholder="Enter your email, e.g. m@example.com" required />
-                                            <InputGroupAddon>
-                                            <MailIcon />
-                                            </InputGroupAddon>
-                                        </InputGroup>
-                                    </>
-                                )}
-                            </div>
-                            <div className="grid gap-3">
-                                <div className="flex items-center">
-                                    <Label htmlFor="password">Password</Label>
-                                    <a
-                                        href="#"
-                                        className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                                    <Field
+                                        orientation="responsive"
+                                        data-invalid={false}
                                     >
-                                        Forgot your password?
-                                    </a>
-                                </div>
-                                <Input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    placeholder="********"
-                                    required
-                                />
-                            </div>
-                            <div className="flex flex-col gap-3">
-                                <Button type="submit" className="w-full">
-                                    Login
-                                </Button>
-                            </div>
-                        </div>
+                                        <FieldLabel htmlFor="username">
+                                            Username
+                                        </FieldLabel>
+                                        <InputGroup>
+                                            <InputGroupInput
+                                                id="username"
+                                                name="username"
+                                                type="text"
+                                                placeholder="DeltaCream"
+                                                required
+                                            />
+                                            <InputGroupAddon>
+                                                <UserIcon />
+                                            </InputGroupAddon>
+                                        </InputGroup>
+                                        <FieldError errors={errorsUsername} />
+                                    </Field>
+                                ) : (
+                                    <Field
+                                        orientation="responsive"
+                                        data-invalid={false}
+                                    >
+                                        <FieldLabel htmlFor="email">
+                                            Email
+                                        </FieldLabel>
+                                        <InputGroup>
+                                            <InputGroupInput
+                                                id="email"
+                                                name="email"
+                                                type="email"
+                                                placeholder="Enter your email, e.g. m@example.com"
+                                                required
+                                                aria-invalid={false}
+                                            />
+                                            <InputGroupAddon>
+                                                <MailIcon />
+                                            </InputGroupAddon>
+                                        </InputGroup>
+                                        <FieldError errors={errorsEmail} />
+                                    </Field>
+                                )}
+                                <Field
+                                    orientation="responsive"
+                                    data-invalid={false}
+                                >
+                                    <div className="flex items-center">
+                                        <FieldLabel
+                                            htmlFor={`password-${loginMethod}`}
+                                        >
+                                            Password
+                                        </FieldLabel>
+                                        <Link
+                                            href="#"
+                                            className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                                        >
+                                            Forgot your password?
+                                        </Link>
+                                    </div>
+                                    <InputGroup>
+                                        <InputGroupInput
+                                            id={`password-${loginMethod}`}
+                                            name={`password-${loginMethod}`}
+                                            type="password"
+                                            placeholder="********"
+                                            required
+                                        />
+                                        <InputGroupAddon>
+                                            <LockKeyholeIcon />
+                                        </InputGroupAddon>
+                                    </InputGroup>
+                                </Field>
+                                <FieldSeparator />
+                                <Field orientation="responsive">
+                                    <Button type="submit">Login</Button>
+                                </Field>
+                            </FieldGroup>
+                        </FieldSet>
                         <div className="mt-4 text-center text-sm">
                             Don&apos;t have an account?{" "}
-                            <a
+                            <Link
                                 href="/register"
                                 className="underline underline-offset-4"
                             >
                                 Sign up
-                            </a>
+                            </Link>
                         </div>
                     </form>
                 </CardContent>
@@ -109,3 +164,93 @@ export function LoginForm({
         </div>
     );
 }
+
+/* //version 1
+<Label htmlFor="username">
+    Username
+</Label>
+<Input 
+    id="username"
+    name="username"
+    type="text"
+    placeholder="DeltaCream"
+    required
+/>
+<Label htmlFor="email">Email</Label>
+<Input
+    id="email"
+    type="email"
+    placeholder="m@example.com"
+    required
+/>
+<Label htmlFor={`password-${loginMethod}`}>Password</Label>
+<Input
+    id="password"
+    name="password"
+    type="password"
+    placeholder="********"
+    required
+/>
+*/
+
+/* //version 2
+<div className="flex flex-col gap-6">
+    <div className="grid gap-3">
+        {className === "username-tab" ? (
+            <>
+                <Label htmlFor="username">
+                    Username
+                </Label>
+                <InputGroup>
+                    <InputGroupInput id="username" name="username" type="text" placeholder="DeltaCream" required />
+                    <InputGroupAddon>
+                    <UserIcon />
+                    </InputGroupAddon>
+                </InputGroup>
+            </>
+        ) : (
+            <>
+                <Label htmlFor="email">Email</Label>
+                
+                <InputGroup>
+                    <InputGroupInput id="email" name="email" type="email" placeholder="Enter your email, e.g. m@example.com" required />
+                    <InputGroupAddon>
+                    <MailIcon />
+                    </InputGroupAddon>
+                </InputGroup>
+            </>
+        )}
+    </div>
+    <div className="grid gap-3">
+        <div className="flex items-center">
+            <Label htmlFor={`password-${loginMethod}`}>Password</Label>
+            <Link
+                href="#"
+                className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+            >
+                Forgot your password?
+            </Link>
+        </div>
+        <InputGroup>
+            <InputGroupInput id={`password-${loginMethod}`} name={`password-${loginMethod}`} type="password" placeholder="********" required />
+            <InputGroupAddon>
+            <LockKeyholeIcon />
+            </InputGroupAddon>
+        </InputGroup>
+    </div>
+    <div className="flex flex-col gap-3">
+        <Button type="submit" className="w-full">
+            Login
+        </Button>
+    </div>
+</div>
+<div className="mt-4 text-center text-sm">
+    Don&apos;t have an account?{" "}
+    <Link
+        href="/register"
+        className="underline underline-offset-4"
+    >
+        Sign up
+    </Link>
+</div>
+*/
