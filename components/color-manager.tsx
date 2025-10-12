@@ -1,15 +1,15 @@
 "use client";
 
-const THEME_KEY = "shadcn-theme";
+const COLOR_KEY = "shadcn-theme";
 const ACCENT_KEY = "shadcn-accent";
 
-export const THEME_CLASSES = [
+export const COLOR_CLASSES = [
   "neutral",
   "stone",
   "zinc",
   "gray",
   "slate",
-];
+] as const;
 
 export const ACCENT_CLASSES = [
   "default",
@@ -20,20 +20,20 @@ export const ACCENT_CLASSES = [
   "blue",
   "yellow",
   "violet",
-];
+] as const;
 
 function root() {
   return typeof document !== "undefined" ? document.documentElement : null;
 }
 
-export function applyThemeClass(name?: string | null) {
+export function applyColorClass(name?: string | null) {
   const el = root();
   if (!el || !name) return;
   // remove any existing theme classes then add the new one
-  THEME_CLASSES.forEach((c) => el.classList.remove(c));
+  COLOR_CLASSES.forEach((c) => el.classList.remove(c));
   el.classList.add(name);
   try {
-    localStorage.setItem(THEME_KEY, name);
+    localStorage.setItem(COLOR_KEY, name);
   } catch (e) {
     // ignore
   }
@@ -51,32 +51,34 @@ export function applyAccentClass(name?: string | null) {
   }
 }
 
-export function initThemeAndAccent() {
+export function initColorAndAccent() {
   if (typeof window === "undefined") return;
   try {
-    const t = localStorage.getItem(THEME_KEY);
+    const t = localStorage.getItem(COLOR_KEY);
     const a = localStorage.getItem(ACCENT_KEY);
-    if (t) applyThemeClass(t);
+    if (t) applyColorClass(t);
     if (a) applyAccentClass(a);
   } catch (e) {
     // ignore
   }
 }
 
-export function clearThemeAndAccent() {
+export function clearColorAndAccent() {
   const el = root();
   if (!el) return;
-  THEME_CLASSES.forEach((c) => el.classList.remove(c));
+  COLOR_CLASSES.forEach((c) => el.classList.remove(c));
   ACCENT_CLASSES.forEach((c) => el.classList.remove(c));
   try {
-    localStorage.removeItem(THEME_KEY);
+    localStorage.removeItem(COLOR_KEY);
     localStorage.removeItem(ACCENT_KEY);
   } catch (e) {}
 }
 
-export default {
-  applyThemeClass,
+const colorManager = {
+  applyColorClass,
   applyAccentClass,
-  initThemeAndAccent,
-  clearThemeAndAccent,
+  initColorAndAccent,
+  clearColorAndAccent,
 };
+
+export default colorManager;

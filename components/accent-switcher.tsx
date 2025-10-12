@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Circle } from "lucide-react";
 import { useTheme } from "next-themes";
-import { applyAccentClass } from "./theme-manager";
+import { applyAccentClass } from "./color-manager";
 
 import { Button } from "@/components/ui/button";
 import {
