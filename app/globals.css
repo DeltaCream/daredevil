@@ -121,7 +121,6 @@ differences between themes that conflict with accent/color changes: (all of the 
 /*
 Themes
 */
-
  
 .neutral {
   --radius: 0.625rem;
@@ -413,11 +412,9 @@ Themes
   --sidebar-border: oklch(1 0 0 / 10%);
 }
 
-
 /*
 Accents
 */
-
 
 .default {
   --primary: oklch(0.205 0 0);
@@ -562,7 +559,6 @@ Accents
   --sidebar-primary-foreground: oklch(0.969 0.016 293.756);
   --sidebar-ring: oklch(0.541 0.281 293.009);
 }
-
 
 @layer base {
   * {
