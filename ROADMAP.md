@@ -1,4 +1,4 @@
-1. Light and Dark Mode Toggle
+1. Light and Dark Mode Toggle (done)
 2. Tailwind
 3. UI Component Websites:
 a. shadcn/ui
@@ -10,7 +10,8 @@ a. Flowbite
 b. Lucide
 5. Server Actions and Server-Side Rendering
 6. Suspense and Skeletons
-
+7. Web Design:
+a. dribbble
 Parts of the website:
 1. Registration
 2. Login
@@ -23,4 +24,7 @@ Parts of the website:
 - Operation Audit (what operation was performed, who changed what, and what changed)
 
 Todo:
-1. Implement a top navbar/header
+1. Implement a top navbar/header (done)
+2. Revamp the theme configuration (base (such as stone, zinc, and slate), color/accent (such as blue and yellow), and theme (light and dark))
+3. investigate if command-menu can fully transition to depend only on Kbd (shadcn/ui) instead of kbd (native)
+4. update terminology and document differences between mode/theme (light, dark, system), base (i.e. slate, stone, zinc), and accents/colors (i.e. blue, yellow)

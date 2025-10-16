@@ -44,9 +44,9 @@
 }
 
 /*
-default theme: Zinc
+default base: previously Zinc, currently Slate
 (only things changed by accent/color: primary, primary-foreground, ring, sidebar-primary, sidebar-primary-foreground, sidebar-ring)
-differences between themes that conflict with accent/color changes: (all of the above, depending on the theme)
+differences between bases that conflict with accent/color changes: (all of the above, depending on the theme)
 */
 
 :root {
@@ -119,9 +119,9 @@ differences between themes that conflict with accent/color changes: (all of the 
 }
 
 /*
-Themes
+Bases
 */
- 
+
 .neutral {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -413,7 +413,7 @@ Themes
 }
 
 /*
-Accents
+Colors/Accents
 */
 
 .default {

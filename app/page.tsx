@@ -39,6 +39,7 @@ import {
 import Link from "next/link";
 import { IconBrandTwitterFilled } from "@tabler/icons-react";
 import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 
 const logos = [
     {
@@ -99,6 +100,7 @@ const logos = [
 ];
 
 export default function Page() {
+    const videoUrl = process.env.NEXT_PUBLIC_VIDEO_URL || "https://stream.mux.com/DS00Spx1CV902MCtPj5WknGlR102V5HFkDe/high.mp4"
     return (
         <div data-wrapper="" className="border-grid flex flex-1 flex-col">
             <SiteHeader />
@@ -169,7 +171,7 @@ export default function Page() {
                         muted
                         preload="auto"
                         slot="media"
-                        src="https://stream.mux.com/DS00Spx1CV902MCtPj5WknGlR102V5HFkDe/high.mp4"
+                        src={videoUrl}
                     />
                     <VideoPlayerControlBar key={"video-player-control-bar"}>
                         <VideoPlayerPlayButton
@@ -195,6 +197,7 @@ export default function Page() {
                     </VideoPlayerControlBar>
                 </VideoPlayer>
             </div>
+            <SiteFooter />
         </div>
     );
 }
