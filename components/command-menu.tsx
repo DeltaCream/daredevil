@@ -20,6 +20,9 @@ import {
 } from "@/components/ui/command"
 import { IconCircleFilled } from "@tabler/icons-react"
 import { applyAccentClass, applyColorClass } from "./color-manager"
+import { useMutationObserver } from "@/hooks/user-mutation-observer"
+import { Kbd, KbdGroup } from "./ui/kbd"
+import { useIsMac } from "@/hooks/use-is-mac"
 
 export function CommandMenu({ ...props }: DialogProps) {
   const router = useRouter()
@@ -52,6 +55,8 @@ export function CommandMenu({ ...props }: DialogProps) {
     command()
   }, [])
 
+  const isMac = useIsMac()
+
   return (
     <>
       <Button
@@ -62,13 +67,22 @@ export function CommandMenu({ ...props }: DialogProps) {
         onClick={() => setOpen(true)}
         {...props}
       >
-        <span className="hidden lg:inline-flex">Search...</span>
+        <span className="hidden lg:inline-flex">Search the website...</span>
         <span className="inline-flex lg:hidden">Search...</span>
-        <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+        {/* <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
           <span className="text-xs">⌘</span>K
-        </kbd>
+        </kbd> */}
+        <KbdGroup>
+          {
+            isMac ? (
+              <Kbd>⌘+K</Kbd>
+            ) : (
+              <Kbd>Ctrl+K</Kbd>
+            )
+          }
+        </KbdGroup>
       </Button>
-      <CommandDialog open={open} onOpenChange={setOpen}>
+      <CommandDialog open={open} title="Command Dialog" onOpenChange={setOpen}>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
@@ -171,5 +185,55 @@ export function CommandMenu({ ...props }: DialogProps) {
         </CommandList>
       </CommandDialog>
     </>
+  )
+}
+
+function CommandMenuItem({
+  children,
+  className,
+  onHighlight,
+  ...props
+}: React.ComponentProps<typeof CommandItem> & {
+  onHighlight?: () => void
+  "data-selected"?: string
+  "aria-selected"?: string
+}) {
+  const ref = React.useRef<HTMLDivElement>(null)
+
+  useMutationObserver(ref, (mutations) => {
+    mutations.forEach((mutation) => {
+      if (
+        mutation.type === "attributes" &&
+        mutation.attributeName === "aria-selected" &&
+        ref.current?.getAttribute("aria-selected") === "true"
+      ) {
+        onHighlight?.()
+      }
+    })
+  })
+
+  return (
+    <CommandItem
+      ref={ref}
+      className={cn(
+        "data-[selected=true]:border-input data-[selected=true]:bg-input/50 h-9 rounded-md border border-transparent !px-3 font-medium",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </CommandItem>
+  )
+}
+
+function CommandMenuKbd({ className, ...props }: React.ComponentProps<"kbd">) {
+  return (
+    <kbd
+      className={cn(
+        "bg-background text-muted-foreground pointer-events-none flex h-5 items-center justify-center gap-1 rounded border px-1 font-sans text-[0.7rem] font-medium select-none [&_svg:not([class*='size-'])]:size-3",
+        className
+      )}
+      {...props}
+    />
   )
 }
