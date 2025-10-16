@@ -24,7 +24,7 @@ import {
     FieldSeparator,
 } from "./ui/field";
 
-var errorsUsername: Array<{ message?: string }> | undefined = [
+let errorsUsername: Array<{ message?: string }> | undefined = [
     // { message: "Choose another username." },
 ];
 
@@ -32,7 +32,7 @@ if (errorsUsername.length === 0) {
     errorsUsername = undefined;
 }
 
-var errorsEmail: Array<{ message?: string }> | undefined = [
+let errorsEmail: Array<{ message?: string }> | undefined = [
     // { message: "Enter a valid email address." },
 ];
 

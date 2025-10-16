@@ -39,7 +39,7 @@ type Feature = {
 
 // columns are already mapped to valid statuses, so this mapping is no longer needed
 
-var columns = [
+let columns = [
     // { id: faker.string.uuid(), name: "Sean", status: "idle" },
     // { id: faker.string.uuid(), name: "Renz", color: "#F59E0B", status: "online"},
     // { id: faker.string.uuid(), name: "Rommel", color: "#10B981", status: "online"},
