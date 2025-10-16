@@ -20,6 +20,9 @@ import {
   IconTriangle,
   IconTriangleFilled,
   IconUsers,
+  IconHome,
+  IconPhoto,
+  IconInfoCircle,
 } from "@tabler/icons-react"
 
 import { NavDocuments } from "@/components/nav-documents"
@@ -40,36 +43,52 @@ import Link from "next/link"
 
 const data = {
   user: {
-    name: "shadcn",
+    name: "DeltaCream",
     email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    avatar: "",
   },
   navMain: [
+    // {
+    //   title: "Dashboard",
+    //   url: "#",
+    //   icon: IconDashboard,
+    // },
     {
-      title: "Dashboard",
-      url: "#",
-      icon: IconDashboard,
+      title: "Home",
+      url: "/",
+      icon: IconHome
     },
     {
-      title: "Lifecycle",
-      url: "#",
-      icon: IconListDetails,
+      title: "Gallery",
+      url: "/gallery",
+      icon: IconPhoto
     },
     {
-      title: "Analytics",
-      url: "#",
-      icon: IconChartBar,
+      title: "About",
+      url: "/about",
+      icon: IconInfoCircle,
     },
-    {
-      title: "Projects",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
-    },
+    
+    // {
+    //   title: "Lifecycle",
+    //   url: "#",
+    //   icon: IconListDetails,
+    // },
+    // {
+    //   title: "Analytics",
+    //   url: "#",
+    //   icon: IconChartBar,
+    // },
+    // {
+    //   title: "Projects",
+    //   url: "#",
+    //   icon: IconFolder,
+    // },
+    // {
+    //   title: "Team",
+    //   url: "#",
+    //   icon: IconUsers,
+    // },
   ],
   navClouds: [
     {
