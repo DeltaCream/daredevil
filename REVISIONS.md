@@ -12,3 +12,16 @@ or use developer velocity (middle if on track, high if early, low if late)
 ### October 7, 2025
 1. add functionality assigning and re-assigning different titles to people
 2. cards should show filter depending on what to show (frontend, backend, employees, supervisors, managers)
+
+### October 17, 2025
+1. make it responsive so that it is usable on mobile
+2. update dashboard sidebar so that navigation is:
+> grouped by section
+> sections are collapsible
+> sidebar has submenus
+> might have a calendar
+
+a. Graph and kanban:
+attendance - daily, weekly, monthly
+vacancy - daily (8 AM - 6 PM), hourly, available and not available
+leaves - number of people on leave

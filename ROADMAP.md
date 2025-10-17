@@ -28,3 +28,4 @@ Todo:
 2. Revamp the theme configuration (base (such as stone, zinc, and slate), color/accent (such as blue and yellow), and theme (light and dark))
 3. investigate if command-menu can fully transition to depend only on Kbd (shadcn/ui) instead of kbd (native)
 4. update terminology and document differences between mode/theme (light, dark, system), base (i.e. slate, stone, zinc), and accents/colors (i.e. blue, yellow)
+5. make it responsive so that it is usable on mobile
