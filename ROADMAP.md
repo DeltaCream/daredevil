@@ -30,6 +30,9 @@ Todo:
 4. update terminology and document differences between mode/theme (light, dark, system), base (i.e. slate, stone, zinc), and accents/colors (i.e. blue, yellow)
 5. make it responsive so that it is usable on mobile
 
+Database:
+1. Create indexes for faster retrieval of data
+
 Backend Functionalities to implement:
 1. Login
 2. Logout
