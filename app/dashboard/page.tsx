@@ -11,6 +11,7 @@ import data from "./data.json";
 import { faker } from "@faker-js/faker";
 
 import DashboardKanban from "@/components/dashboard-kanban";
+import { EmployeeChartArea } from "@/components/employee-chart-area";
 
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -130,10 +131,11 @@ export default function Page() {
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                             <SectionCards content={exampleCardData}/>
                             <div className="px-4 lg:px-6">
-                              <ChartAreaInteractive />
+                              {/* <ChartAreaInteractive /> */}
+                              <EmployeeChartArea />
                             </div>
-                            <DataTable data={data} />
                             <DashboardKanban columns={columns as Column[]} users={users as User[]} features={exampleFeatures as Feature[]} />
+                            <DataTable data={data} />
                         </div>
                     </div>
                 </div>

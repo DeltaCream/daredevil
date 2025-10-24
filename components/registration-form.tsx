@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -10,9 +12,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { registerAction } from "@/lib/actions";
 import { cn } from "@/lib/utils";
-import { LockKeyholeIcon, MailIcon, UserIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon, LockKeyholeIcon, MailIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
-import { InputGroup, InputGroupInput, InputGroupAddon } from "./ui/input-group";
+import { InputGroup, InputGroupInput, InputGroupAddon, InputGroupButton } from "./ui/input-group";
 import {
     FieldSet,
     FieldLegend,
@@ -23,6 +25,7 @@ import {
     FieldError,
     FieldSeparator,
 } from "./ui/field";
+import { useState } from "react";
 
 let errorsUsername: Array<{ message?: string }> | undefined = [
     // { message: "Choose another username." },
@@ -44,6 +47,9 @@ export function RegistrationForm({
     className,
     ...props
 }: React.ComponentProps<"div">) {
+    let [showPassword, setShowPassword] = useState(false);
+    let [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
             <Card>
@@ -177,13 +183,18 @@ export function RegistrationForm({
                                         <InputGroupInput
                                             id="password"
                                             name="password"
-                                            type="password"
+                                            type={showPassword ? "text" : "password"}
                                             placeholder="Password"
                                             required
                                         />
                                         <InputGroupAddon>
                                             <LockKeyholeIcon />
                                         </InputGroupAddon>
+                                        <InputGroupButton onClick={() => setShowPassword(!showPassword)}>
+                                        {
+                                            showPassword ? <EyeIcon /> : <EyeOffIcon />
+                                        }
+                                        </InputGroupButton>
                                     </InputGroup>
                                 </Field>
                                 <Field
@@ -197,13 +208,18 @@ export function RegistrationForm({
                                         <InputGroupInput
                                             id="confirm-password"
                                             name="confirm-password"
-                                            type="password"
+                                            type={showConfirmPassword ? "text" : "password"}
                                             placeholder="Confirm Password"
                                             required
                                         />
                                         <InputGroupAddon>
                                             <LockKeyholeIcon />
                                         </InputGroupAddon>
+                                        <InputGroupButton onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                                        {
+                                            showConfirmPassword ? <EyeIcon /> : <EyeOffIcon />
+                                        }
+                                        </InputGroupButton>
                                     </InputGroup>
                                 </Field>
                                 <FieldSeparator />

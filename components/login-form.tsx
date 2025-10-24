@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -10,8 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { loginEmailAction, loginUsernameAction } from "@/lib/actions";
 import { cn } from "@/lib/utils";
-import { LockKeyholeIcon, MailIcon, UserIcon } from "lucide-react";
-import { InputGroup, InputGroupInput, InputGroupAddon } from "./ui/input-group";
+import { EyeIcon, EyeOffIcon, LockKeyholeIcon, MailIcon, UserIcon } from "lucide-react";
+import { InputGroup, InputGroupInput, InputGroupAddon, InputGroupButton } from "./ui/input-group";
 import Link from "next/link";
 import {
     FieldSet,
@@ -23,6 +25,8 @@ import {
     FieldError,
     FieldSeparator,
 } from "./ui/field";
+import { is } from "zod/v4/locales";
+import React, { useState } from "react";
 
 let errorsUsername: Array<{ message?: string }> | undefined =
 [
@@ -45,6 +49,8 @@ export function LoginForm({
     className,
     ...props
 }: React.ComponentProps<"div">) {
+    let [showPassword, setShowPassword] = useState(false);
+
     const loginMethod = className?.split("-tab")[0];
     console.log(loginMethod);
     const formAction =
@@ -134,13 +140,18 @@ export function LoginForm({
                                         <InputGroupInput
                                             id={`password-${loginMethod}`}
                                             name={`password-${loginMethod}`}
-                                            type="password"
+                                            type={showPassword ? "text" : "password"}
                                             placeholder="********"
                                             required
                                         />
                                         <InputGroupAddon>
                                             <LockKeyholeIcon />
                                         </InputGroupAddon>
+                                        <InputGroupButton onClick={() => setShowPassword(!showPassword)}>
+                                        {
+                                            showPassword ? <EyeIcon /> : <EyeOffIcon/>
+                                        }
+                                        </InputGroupButton>
                                     </InputGroup>
                                 </Field>
                                 <FieldSeparator />

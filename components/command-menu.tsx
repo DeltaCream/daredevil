@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
-import { type DialogProps } from "@radix-ui/react-dialog"
+import { Dialog, DialogTrigger, type DialogProps } from "@radix-ui/react-dialog"
 import { Circle, File, Laptop, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 
@@ -58,7 +58,8 @@ export function CommandMenu({ ...props }: DialogProps) {
   const isMac = useIsMac()
 
   return (
-    <>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
       <Button
         variant="outline"
         className={cn(
@@ -72,16 +73,18 @@ export function CommandMenu({ ...props }: DialogProps) {
         {/* <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
           <span className="text-xs">⌘</span>K
         </kbd> */}
-        <KbdGroup>
-          {
-            isMac ? (
-              <Kbd>⌘+K</Kbd>
-            ) : (
-              <Kbd>Ctrl+K</Kbd>
-            )
-          }
+        <KbdGroup className="py-auto hidden gap-1 sm:flex">
+        {
+          isMac ? (
+            <Kbd className="border">⌘+K</Kbd>
+          ) : (
+            <Kbd className="border">Ctrl+K</Kbd>
+          )
+        }
         </KbdGroup>
+      
       </Button>
+      </DialogTrigger>
       <CommandDialog open={open} title="Command Dialog" onOpenChange={setOpen}>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
@@ -184,7 +187,7 @@ export function CommandMenu({ ...props }: DialogProps) {
           </CommandGroup>
         </CommandList>
       </CommandDialog>
-    </>
+    </Dialog>
   )
 }
 
