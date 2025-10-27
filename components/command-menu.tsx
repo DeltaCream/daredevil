@@ -93,16 +93,17 @@ export function CommandMenu({ ...props }: DialogProps) {
             {commandConfig.mainNav
               .filter((navitem) => !navitem.external)
               .map((navItem) => (
-                <CommandItem
+                <CommandMenuItem //use CommandMenuItem which is a custom component that uses useMutationObserver and is based off of CommandItem
                   key={navItem.href}
                   value={navItem.title}
+                  keywords={["nav", "navigation", String(navItem.label ?? navItem.title).toLowerCase()]}
                   onSelect={() => {
                     runCommand(() => router.push(navItem.href as string))
                   }}
                 >
                   <File />
                   {navItem.title}
-                </CommandItem>
+                </CommandMenuItem>
               ))}
           </CommandGroup>
 {/* 
