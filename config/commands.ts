@@ -23,10 +23,10 @@ export interface NavItem {
 
 export const commandConfig: CmdConfig = {
   mainNav: [
-    {
-      title: "Home",
-      href: "/",
-    },
+    // {
+    //   title: "Home",
+    //   href: "/",
+    // },
     {
       title: "Dashboard",
       href: "/dashboard",
@@ -39,14 +39,14 @@ export const commandConfig: CmdConfig = {
       title: "Login",
       href: "/login",
     },
-    {
-      title: "Gallery",
-      href: "/gallery",
-    },
-    {
-      title: "About",
-      href: "/about",
-    }
+    // {
+    //   title: "Gallery",
+    //   href: "/gallery",
+    // },
+    // {
+    //   title: "About",
+    //   href: "/about",
+    // }
   ],
   sidebarNav: [
     {

@@ -24,7 +24,7 @@ export function DashboardHeader() {
                     <ThemeSwitcher />
                     <ColorSwitcher />
                     <AccentSwitcher />
-                    <Button
+                    {/* <Button
                         variant="ghost"
                         asChild
                         size="sm"
@@ -38,7 +38,7 @@ export function DashboardHeader() {
                         >
                             GitHub
                         </Link>
-                    </Button>
+                    </Button> */}
                 </div>
             </div>
         </header>

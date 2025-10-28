@@ -139,21 +139,21 @@ const data = {
     },
   ],
   navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: IconSettings,
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
-    },
+    // {
+    //   title: "Settings",
+    //   url: "#",
+    //   icon: IconSettings,
+    // },
+    // { //contains info about the website
+    //   title: "Get Help",
+    //   url: "#",
+    //   icon: IconHelp,
+    // },
+    // {
+    //   title: "Search",
+    //   url: "#",
+    //   icon: IconSearch,
+    // },
   ],
   documents: [
     // {
@@ -213,8 +213,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
+        {/* <NavMain items={data.navMain} /> */}
+        {/* <NavDocuments items={data.documents} /> */}
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
