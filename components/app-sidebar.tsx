@@ -37,9 +37,11 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar"
 import { useState } from "react"
 import Link from "next/link"
+import { Collapsible } from "./ui/collapsible"
 
 const data = {
   user: {
@@ -139,21 +141,21 @@ const data = {
     },
   ],
   navSecondary: [
-    // {
-    //   title: "Settings",
-    //   url: "#",
-    //   icon: IconSettings,
-    // },
-    // { //contains info about the website
-    //   title: "Get Help",
-    //   url: "#",
-    //   icon: IconHelp,
-    // },
-    // {
-    //   title: "Search",
-    //   url: "#",
-    //   icon: IconSearch,
-    // },
+    {
+      title: "Settings",
+      url: "#",
+      icon: IconSettings,
+    },
+    { //contains info about the website
+      title: "Get Help",
+      url: "#",
+      icon: IconHelp,
+    },
+    {
+      title: "Search",
+      url: "#",
+      icon: IconSearch,
+    },
   ],
   documents: [
     // {
@@ -190,6 +192,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return header;
   });
 
+  // const {
+  //   state,
+  //   open,
+  //   setOpen,
+  //   openMobile,
+  //   setOpenMobile,
+  //   isMobile,
+  //   toggleSidebar,
+  // } = useSidebar()
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -213,9 +225,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        {/* <NavMain items={data.navMain} /> */}
-        {/* <NavDocuments items={data.documents} /> */}
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        {/* <Collapsible defaultOpen className="group/collapsible">
+          <NavMain items={data.navMain} />
+        </Collapsible>
+        <Collapsible defaultOpen className="group/collapsible">
+          <NavDocuments items={data.documents} />
+        </Collapsible>
+        <Collapsible defaultOpen className="group/collapsible">
+          <NavSecondary items={data.navSecondary} className="mt-auto" />
+        </Collapsible> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
