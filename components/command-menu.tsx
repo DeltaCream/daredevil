@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { Dialog, DialogTrigger, type DialogProps } from "@radix-ui/react-dialog"
-import { Circle, File, Laptop, Moon, Sun } from "lucide-react"
+import { Circle, File, Laptop, Link, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 
 import { commandConfig } from "@/config/commands"
@@ -23,11 +23,12 @@ import { applyAccentClass, applyColorClass } from "./color-manager"
 import { useMutationObserver } from "@/hooks/user-mutation-observer"
 import { Kbd, KbdGroup } from "./ui/kbd"
 import { useIsMac } from "@/hooks/use-is-mac"
+// baseColors is not used here; color swatches are rendered via CSS variables/classes
 
 export function CommandMenu({ ...props }: DialogProps) {
   const router = useRouter()
   const [open, setOpen] = React.useState(false)
-  const { setTheme } = useTheme()
+  const { theme, setTheme } = useTheme()
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -101,7 +102,7 @@ export function CommandMenu({ ...props }: DialogProps) {
                     runCommand(() => router.push(navItem.href as string))
                   }}
                 >
-                  <File />
+                  <Link />
                   {navItem.title}
                 </CommandMenuItem>
               ))}
@@ -142,48 +143,64 @@ export function CommandMenu({ ...props }: DialogProps) {
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
-          <CommandGroup heading="Color">
+          <CommandGroup heading="Color"> 
+            {/* TODO: Refer colors from base-colors.ts and globals.css */}
+            {/* Use `fill-*` to set the fill color of SVG elements like `<IconCircleFilled />`
+            while you use `stroke-*` for stroke colors */}
             <CommandItem onSelect={() => runCommand(() => applyColorClass("neutral"))}>
+              <IconCircleFilled className="fill-neutral-800" />
               Neutral
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => applyColorClass("stone"))}>
+              <IconCircleFilled className="fill-stone-800"/>
               Stone
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => applyColorClass("zinc"))}>
+              <IconCircleFilled className="fill-zinc-800"/>
               Zinc
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => applyColorClass("gray"))}>
+              <IconCircleFilled className="fill-gray-800" />
               Gray
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => applyColorClass("slate"))}>
+              <IconCircleFilled className="fill-slate-800"/>
               Slate
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup heading="Accent">
             <CommandItem onSelect={() => runCommand(() => applyAccentClass("default"))}>
-                Default
+              <IconCircleFilled className={cn(theme == "light" ? "fill-neutral-900" : "fill-neutral-200")} />
+              Default
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => applyAccentClass("red"))}>
-                Red
+              <IconCircleFilled className="fill-red-500" />
+              Red
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => applyAccentClass("rose"))}>
-                Rose
+              <IconCircleFilled className="fill-rose-500" />
+              Rose
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => applyAccentClass("orange"))}>
-                Orange
+              <IconCircleFilled className={cn(theme == "light" ? "fill-orange-500" : "fill-orange-600")} />
+              Orange
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => applyAccentClass("green"))}>
-                Green
+              <IconCircleFilled className={cn(theme == "light" ? "fill-green-500" : "fill-emerald-500")} />
+              Green
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => applyAccentClass("blue"))}>
-                Blue
+              <IconCircleFilled className={cn(theme == "light" ? "fill-blue-500" : "fill-blue-600")} />
+              Blue
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => applyAccentClass("yellow"))}>
-                Yellow
+              <IconCircleFilled className="fill-yellow-800" />
+              Yellow
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => applyAccentClass("violet"))}>
-                Violet
+              <IconCircleFilled className={cn(theme == "light" ? "fill-violet-500" : "fill-violet-600")} />
+              Violet
             </CommandItem>
           </CommandGroup>
         </CommandList>
