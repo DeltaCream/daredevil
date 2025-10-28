@@ -31,6 +31,7 @@ import { createPortal } from 'react-dom';
 import tunnel from 'tunnel-rat';
 import { Card } from '@/components/ui/card';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { GripVertical } from "lucide-react";
 import { cn } from '@/lib/utils';
 
 const t = tunnel();
@@ -91,6 +92,7 @@ export const KanbanBoard = ({ id, children, className }: KanbanBoardProps) => {
 export type KanbanCardProps<T extends KanbanItemProps = KanbanItemProps> = T & {
   children?: ReactNode;
   className?: string;
+  onClick?: () => void;
 };
 
 export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
@@ -98,6 +100,7 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
   name,
   children,
   className,
+  onClick,
 }: KanbanCardProps<T>) => {
   const {
     attributes,
@@ -118,15 +121,29 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
 
   return (
     <>
-      <div style={style} {...listeners} {...attributes} ref={setNodeRef}>
+      <div style={style} ref={setNodeRef} {...attributes}>
         <Card
           className={cn(
-            'cursor-grab gap-4 rounded-md p-3 shadow-sm',
-            isDragging && 'pointer-events-none cursor-grabbing opacity-30',
+            'relative gap-4 rounded-md p-3 shadow-sm',
+            isDragging && 'opacity-30',
             className
           )}
         >
-          {children ?? <p className="m-0 font-medium text-sm">{name}</p>}
+          <div
+            className="absolute left-2 top-1/2 -translate-y-1/2 cursor-grab touch-none"
+            {...listeners}
+          >
+            <GripVertical className="size-4 text-muted-foreground" />
+          </div>
+          <div 
+            className="pl-6 cursor-pointer" 
+            onClick={(e) => {
+              e.stopPropagation();
+              onClick?.();
+            }}
+          >
+            {children ?? <p className="m-0 font-medium text-sm">{name}</p>}
+          </div>
         </Card>
       </div>
       {activeCardId === id && (

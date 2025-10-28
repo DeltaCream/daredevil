@@ -10,8 +10,9 @@ import data from "./data.json";
 
 import { faker } from "@faker-js/faker";
 
-import DashboardKanban from "@/components/dashboard-kanban";
 import { EmployeeChartArea } from "@/components/employee-chart-area";
+import EmployeeKanban from "@/components/employee-kanban";
+import { id } from "zod/v4/locales";
 
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -46,10 +47,14 @@ let columns = [
     // { id: faker.string.uuid(), name: "Rommel", color: "#10B981", status: "online"},
     // { id: faker.string.uuid(), name: "Mehraj", color: "#10B981", status: "offline"},
     // { id: faker.string.uuid(), name: "Jay", color: "#10B981", status: "pending" },
+    // { id: faker.string.uuid(), name: "Available", status: "online"},
+    // { id: faker.string.uuid(), name: "Not Available", status: "offline"},
+    // { id: faker.string.uuid(), name: "Frontend", status: "idle"},
+    // { id: faker.string.uuid(), name: "Backend", status: "pending"},
+    { id: faker.string.uuid(), name: "Busy", status: "offline"},
+    { id: faker.string.uuid(), name: "Nearing Availability", status: "idle"},
     { id: faker.string.uuid(), name: "Available", status: "online"},
-    { id: faker.string.uuid(), name: "Not Available", status: "offline"},
-    { id: faker.string.uuid(), name: "Frontend", status: "idle"},
-    { id: faker.string.uuid(), name: "Backend", status: "pending"},
+    { id: faker.string.uuid(), name: "Present", status: "pending"},
 ];
 
 columns = columns.map((column) => {
@@ -122,6 +127,7 @@ export default function Page() {
                     "--header-height": "calc(var(--spacing) * 12)",
                 } as React.CSSProperties
             }
+            defaultOpen={false}
         >
             <AppSidebar variant="inset" />
             <SidebarInset>
@@ -134,7 +140,7 @@ export default function Page() {
                               <ChartAreaInteractive />
                               <EmployeeChartArea />
                             </div> */}
-                            <DashboardKanban columns={columns as Column[]} users={users as User[]} features={exampleFeatures as Feature[]} />
+                            <EmployeeKanban columns={columns as Column[]} users={users as User[]} features={exampleFeatures as Feature[]} />
                             {/* <DataTable data={data} /> */}
                         </div>
                     </div>
