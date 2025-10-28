@@ -149,18 +149,6 @@ export default function EmployeeKanban({
                                                     </AvatarFallback>
                                                 </Avatar>
                                             )}
-                                            {/* action button: stopPropagation so clicking it doesn't start a drag */}
-                                            {/* <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    setOpenFeatureId(feature.id);
-                                                }}
-                                                aria-label={`Open ${feature.name} details`}
-                                            >
-                                                <MoreHorizontal className="size-4" />
-                                            </Button> */}
                                         </div>
                                     </div>
                                     <p className="m-0 text-xs">{feature.remarks}</p>

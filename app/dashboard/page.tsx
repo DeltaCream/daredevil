@@ -1,6 +1,9 @@
 /// From shadcn/ui
 import { AppSidebar } from "@/components/app-sidebar";
-import { ChartAreaInteractive, description } from "@/components/chart-area-interactive";
+import {
+    ChartAreaInteractive,
+    description,
+} from "@/components/chart-area-interactive";
 import { DataTable } from "@/components/data-table";
 import { SectionCards } from "@/components/section-cards";
 import { DashboardHeader } from "@/components/dashboard-header";
@@ -51,28 +54,30 @@ let columns = [
     // { id: faker.string.uuid(), name: "Not Available", status: "offline"},
     // { id: faker.string.uuid(), name: "Frontend", status: "idle"},
     // { id: faker.string.uuid(), name: "Backend", status: "pending"},
-    { id: faker.string.uuid(), name: "Busy", status: "offline"},
-    { id: faker.string.uuid(), name: "Nearing Availability", status: "idle"},
-    { id: faker.string.uuid(), name: "Available", status: "online"},
-    { id: faker.string.uuid(), name: "Present", status: "pending"},
+    { id: faker.string.uuid(), name: "Busy", status: "offline" },
+    { id: faker.string.uuid(), name: "Nearing Availability", status: "idle" },
+    { id: faker.string.uuid(), name: "Available", status: "online" },
+    { id: faker.string.uuid(), name: "Present", status: "pending" },
 ];
 
 columns = columns.map((column) => {
     // Map string status to StatusType, change "pending" to "maintenance", "idle" to "degraded", and set status to "offline" if not valid
     let newStatus: StatusType =
-        column.status === "online" ||
-        column.status === "offline"
+        column.status === "online" || column.status === "offline"
             ? column.status
-            : column.status === "pending" ? "maintenance"
-            : column.status === "idle" ? "degraded" : "offline";
+            : column.status === "pending"
+            ? "maintenance"
+            : column.status === "idle"
+            ? "degraded"
+            : "offline";
     if (column.status === "idle") {
         newStatus = "degraded";
     } else if (column.status === "pending") {
         newStatus = "maintenance";
     }
 
-  return { ...column, status: newStatus };
-})
+    return { ...column, status: newStatus };
+});
 
 const users = Array.from({ length: 4 })
     .fill(null)
@@ -94,6 +99,19 @@ const exampleFeatures = Array.from({ length: 20 })
         owner: faker.helpers.arrayElement(users),
     }));
 
+//data needed:
+/*
+1. id of employee
+2. name of employee
+3. avatar of employee
+4. projects of employee containing:
+a. name of project
+b. link of project (in Jira)
+c. status of project
+d. due date
+5. remarks of employee
+*/
+
 // const exampleCardData = Array.from({ length: 20 })
 //     .fill(null)
 //     .map(() => ({
@@ -108,15 +126,21 @@ const exampleCardData = [
         title: "Employees",
         description: "Number of employees present",
         content: "20",
-        footer: faker.number.float({ min: 0, max: 100, fractionDigits: 2}) + "%" + " of total employees",
+        footer:
+            faker.number.float({ min: 0, max: 100, fractionDigits: 2 }) +
+            "%" +
+            " of total employees",
     },
     {
         title: "Supervisors",
         description: "Number of supervisors present",
         content: "5",
-        footer: faker.number.float({ min: 0, max: 100, fractionDigits: 2}) + "%" + " of total supervisors",
+        footer:
+            faker.number.float({ min: 0, max: 100, fractionDigits: 2 }) +
+            "%" +
+            " of total supervisors",
     },
-]
+];
 
 export default function Page() {
     return (
@@ -140,12 +164,16 @@ export default function Page() {
                               <ChartAreaInteractive />
                               <EmployeeChartArea />
                             </div> */}
-                            <EmployeeKanban columns={columns as Column[]} users={users as User[]} features={exampleFeatures as Feature[]} />
+                            <EmployeeKanban
+                                columns={columns as Column[]}
+                                users={users as User[]}
+                                features={exampleFeatures as Feature[]}
+                            />
                             {/* <DataTable data={data} /> */}
                         </div>
                     </div>
                 </div>
-            </SidebarInset> 
+            </SidebarInset>
         </SidebarProvider>
     );
 }

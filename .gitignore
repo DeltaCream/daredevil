@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# rust for some reason
+/target
+
+# do not include SQL files (for now)
+*.sql
