@@ -9,7 +9,7 @@ import {
     KanbanCards,
     KanbanHeader,
     KanbanProvider,
-} from "@/components/ui/shadcn-io/kanban";
+} from "@/components/ui/shadcn-io/kanban/employee";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
     Dialog,
@@ -19,6 +19,7 @@ import {
     DialogDescription,
     DialogFooter,
     DialogClose,
+    DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
@@ -74,9 +75,24 @@ export default function EmployeeKanban({
     features: dashboardFeatures,
 }: EmployeeKanbanProps) {
     const [features, setFeatures] = React.useState(dashboardFeatures);
-    const [openFeatureId, setOpenFeatureId] = React.useState<string | null>(
-        null
-    );
+    const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+    // const [openFeatureId, setOpenFeatureId] = React.useState<string | null>(
+    //     null
+    // );
+
+    // timestamp of last dialog close — used to debounce immediate re-opens
+    // const lastDialogCloseRef = React.useRef<number | null>(null);
+    // const DIALOG_COOLDOWN_MS = 250; // (200-300ms is typical)
+
+    // Use this instead of calling setOpenFeatureId directly
+    // const tryOpenFeature = (featureId: string) => {
+    //     const last = lastDialogCloseRef.current;
+    //     if (last && Date.now() - last < DIALOG_COOLDOWN_MS) {
+    //         // ignore attempts to open too soon after a close
+    //         return;
+    //     }
+    //     setOpenFeatureId(featureId);
+    // };
 
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
@@ -126,51 +142,45 @@ export default function EmployeeKanban({
                                 id={feature.id}
                                 key={feature.id}
                                 name={feature.name}
+                                dialogOpen={isDialogOpen}
                             >
                                 {/* Clicking the card or the action button opens a Dialog (similar to a modal) with details.
                                     Click on the card to reliably open the overlay without interfering with drag handlers. */}
-                                <div
-                                    className="cursor-pointer"
-                                    onClick={(e) => {
-                                        // Prevent the click from bubbling to parent drag handlers
-                                        e.stopPropagation();
-                                        setOpenFeatureId(feature.id);
-                                    }}
-                                >
-                                    <div className="flex items-start justify-between gap-2">
-                                        <div className="flex flex-col gap-1">
-                                            <p className="m-0 flex-1 font-medium text-sm">
-                                                {feature.name}
+                                <Dialog modal={true} onOpenChange={() => setIsDialogOpen(!isDialogOpen)} open={isDialogOpen}>
+                                    <DialogTrigger asChild>
+                                        <div>
+                                            <div className="flex items-start justify-between gap-2">
+                                                <div className="flex flex-col gap-1">
+                                                    <p className="m-0 flex-1 font-medium text-sm">
+                                                        {feature.name}
+                                                    </p>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    {feature.owner && (
+                                                        <Avatar className="h-4 w-4 shrink-0">
+                                                            <AvatarImage
+                                                                src={
+                                                                    feature
+                                                                        .owner
+                                                                        .image
+                                                                }
+                                                            />
+                                                            <AvatarFallback>
+                                                                {feature.owner.name?.slice(
+                                                                    0,
+                                                                    2
+                                                                )}
+                                                            </AvatarFallback>
+                                                        </Avatar>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <p className="m-0 text-xs">
+                                                {feature.remarks}
                                             </p>
                                         </div>
-                                        <div className="flex items-center gap-2">
-                                            {feature.owner && (
-                                                <Avatar className="h-4 w-4 shrink-0">
-                                                    <AvatarImage
-                                                        src={
-                                                            feature.owner.image
-                                                        }
-                                                    />
-                                                    <AvatarFallback>
-                                                        {feature.owner.name?.slice(
-                                                            0,
-                                                            2
-                                                        )}
-                                                    </AvatarFallback>
-                                                </Avatar>
-                                            )}
-                                        </div>
-                                    </div>
-                                    <p className="m-0 text-xs">
-                                        {feature.remarks}
-                                    </p>
-                                </div>
-                                <Dialog
-                                    open={openFeatureId === feature.id}
-                                    onOpenChange={(open: boolean) => {
-                                        if (!open) setOpenFeatureId(null);
-                                    }}
-                                >
+                                    </DialogTrigger>
+
                                     <DialogContent>
                                         <DialogHeader>
                                             <DialogTitle>
