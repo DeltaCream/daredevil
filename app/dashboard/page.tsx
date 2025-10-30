@@ -16,6 +16,7 @@ import { faker } from "@faker-js/faker";
 import { EmployeeChartArea } from "@/components/employee-chart-area";
 import EmployeeKanban from "@/components/employee-kanban";
 import { id } from "zod/v4/locales";
+import DashboardKanban from "@/components/dashboard-kanban";
 
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -99,19 +100,6 @@ const exampleFeatures = Array.from({ length: 20 })
         owner: faker.helpers.arrayElement(users),
     }));
 
-//data needed:
-/*
-1. id of employee
-2. name of employee
-3. avatar of employee
-4. projects of employee containing:
-a. name of project
-b. link of project (in Jira)
-c. status of project
-d. due date
-5. remarks of employee
-*/
-
 // const exampleCardData = Array.from({ length: 20 })
 //     .fill(null)
 //     .map(() => ({
@@ -151,7 +139,7 @@ export default function Page() {
                     "--header-height": "calc(var(--spacing) * 12)",
                 } as React.CSSProperties
             }
-            defaultOpen={false}
+            defaultOpen
         >
             <AppSidebar variant="inset" />
             <SidebarInset>
@@ -159,17 +147,12 @@ export default function Page() {
                 <div className="flex flex-1 flex-col">
                     <div className="@container/main flex flex-1 flex-col gap-2">
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                            {/* <SectionCards content={exampleCardData}/>
+                            <SectionCards content={exampleCardData} />
+                            <DashboardKanban columns={columns as Column[]} users={users} features={exampleFeatures} />
                             <div className="px-4 lg:px-6">
-                              <ChartAreaInteractive />
-                              <EmployeeChartArea />
-                            </div> */}
-                            <EmployeeKanban
-                                columns={columns as Column[]}
-                                users={users as User[]}
-                                features={exampleFeatures as Feature[]}
-                            />
-                            {/* <DataTable data={data} /> */}
+                                <ChartAreaInteractive />
+                            </div>
+                            <DataTable data={data} />
                         </div>
                     </div>
                 </div>
