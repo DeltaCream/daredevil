@@ -75,7 +75,12 @@ export default function EmployeeKanban({
     features: dashboardFeatures,
 }: EmployeeKanbanProps) {
     const [features, setFeatures] = React.useState(dashboardFeatures);
+    // needed to disable (unintentional) dragging when dialog is open
     const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+    // track which feature's dialog is open (feature id) or null when none
+    const [openFeatureId, setOpenFeatureId] = React.useState<string | null>(
+        null
+    );
     // const [openFeatureId, setOpenFeatureId] = React.useState<string | null>(
     //     null
     // );
@@ -146,7 +151,16 @@ export default function EmployeeKanban({
                             >
                                 {/* Clicking the card or the action button opens a Dialog (similar to a modal) with details.
                                     Click on the card to reliably open the overlay without interfering with drag handlers. */}
-                                <Dialog modal={true} onOpenChange={() => setIsDialogOpen(!isDialogOpen)} open={isDialogOpen}>
+                                <Dialog
+                                    modal={true}
+                                    onOpenChange={(open) => {
+                                        setOpenFeatureId(
+                                            open ? feature.id : null
+                                        );
+                                        setIsDialogOpen(open); //need this to pass on the KanbanProvider to disable any finicky behavior regarding drag and drop when selecting on a Dialog
+                                    }}
+                                    open={openFeatureId === feature.id}
+                                >
                                     <DialogTrigger asChild>
                                         <div>
                                             <div className="flex items-start justify-between gap-2">
