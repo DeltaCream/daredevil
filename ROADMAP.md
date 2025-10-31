@@ -29,6 +29,7 @@ Todo:
 3. investigate if command-menu can fully transition to depend only on Kbd (shadcn/ui) instead of kbd (native)
 4. update terminology and document differences between mode/theme (light, dark, system), base (i.e. slate, stone, zinc), and accents/colors (i.e. blue, yellow)
 5. make it responsive so that it is usable on mobile
+6. finalize metadata and <head> content of the website
 
 Database:
 1. Create indexes for faster retrieval of data
