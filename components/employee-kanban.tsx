@@ -162,7 +162,7 @@ export default function EmployeeKanban({
                                     open={openFeatureId === feature.id}
                                 >
                                     <DialogTrigger asChild>
-                                        <div>
+                                        <div role="button">
                                             <div className="flex items-start justify-between gap-2">
                                                 <div className="flex flex-col gap-1">
                                                     <p className="m-0 flex-1 font-medium text-sm">

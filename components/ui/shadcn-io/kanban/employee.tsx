@@ -118,7 +118,7 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
 
     const [isPointerDown, setIsPointerDown] = useState(false);
 
-    const pointerDownPos = useRef<{ x: number; y: number } | null>(null);
+    // const pointerDownPos = useRef<{ x: number; y: number } | null>(null);
 
     // Handle pointer down/up for "clicking" vs "dragging"
     const handlePointerDown = () => setIsPointerDown(true);
@@ -140,7 +140,10 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
         // Allow Enter or Space to open dialog (only if not dragging)
         if ((!isDragging && e.key === "Enter") || e.key === " ") {
             e.preventDefault();
-            onclick;
+            const element = e.currentTarget.querySelector('[role="button"]'); //pinpoint which card to open
+            if (element instanceof HTMLElement) {
+                element.click();
+            }
         }
     };
 
@@ -242,10 +245,7 @@ export const KanbanCards = <T extends KanbanItemProps = KanbanItemProps>({
         <ScrollArea className="overflow-hidden">
             <SortableContext items={items}>
                 <div
-                    className={cn(
-                        "flex flex-grow flex-col gap-2 p-2",
-                        className
-                    )}
+                    className={cn("flex grow flex-col gap-2 p-2", className)}
                     {...props}
                 >
                     {filteredData.map(children)}
