@@ -41,15 +41,21 @@ type Feature = {
 // columns are already mapped to valid statuses, so this mapping is no longer needed
 
 let columns = [
-    // { id: faker.string.uuid(), name: "Sean", status: "idle" },
-    // { id: faker.string.uuid(), name: "Renz", color: "#F59E0B", status: "online"},
-    // { id: faker.string.uuid(), name: "Rommel", color: "#10B981", status: "online"},
-    // { id: faker.string.uuid(), name: "Mehraj", color: "#10B981", status: "offline"},
-    // { id: faker.string.uuid(), name: "Jay", color: "#10B981", status: "pending" },
-    { id: faker.string.uuid(), name: "Available", status: "online"},
-    { id: faker.string.uuid(), name: "Not Available", status: "offline"},
-    { id: faker.string.uuid(), name: "Frontend", status: "idle"},
-    { id: faker.string.uuid(), name: "Backend", status: "pending"},
+    // { id: faker.string.uuid(), name: "John", status: "idle" },
+    // { id: faker.string.uuid(), name: "Ben", color: "#F59E0B", status: "online"},
+    // { id: faker.string.uuid(), name: "Mike", color: "#10B981", status: "online"},
+    // { id: faker.string.uuid(), name: "Benson", color: "#10B981", status: "offline"},
+    // { id: faker.string.uuid(), name: "Peter", color: "#10B981", status: "pending" },
+
+    // { id: faker.string.uuid(), name: "Available", status: "online"},
+    // { id: faker.string.uuid(), name: "Not Available", status: "offline"},
+    // { id: faker.string.uuid(), name: "Frontend", status: "idle"},
+    // { id: faker.string.uuid(), name: "Backend", status: "pending"},
+    { id: faker.string.uuid(), name: "Busy", status: "offline" },
+    { id: faker.string.uuid(), name: "Nearing Availability", status: "idle" },
+    { id: faker.string.uuid(), name: "Available", status: "online" },
+    { id: faker.string.uuid(), name: "Present", status: "pending" },
+    // { id: faker.string.uuid(), name: "On Leave", status: "idle"}
 ];
 
 columns = columns.map((column) => {
@@ -122,6 +128,7 @@ export default function Page() {
                     "--header-height": "calc(var(--spacing) * 12)",
                 } as React.CSSProperties
             }
+            defaultOpen={false}
         >
             <AppSidebar variant="inset" />
             <SidebarInset>
