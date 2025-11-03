@@ -13,8 +13,8 @@ import data from "./data.json";
 
 import { faker } from "@faker-js/faker";
 
-import { EmployeeChartArea } from "@/components/employee-chart-area";
-import EmployeeKanban from "@/components/employee-kanban";
+import { EmployeeChartArea } from "@/components/employee/employee-chart-area";
+import EmployeeKanban from "@/components/employee/employee-kanban";
 import { id } from "zod/v4/locales";
 import DashboardKanban from "@/components/dashboard-kanban";
 

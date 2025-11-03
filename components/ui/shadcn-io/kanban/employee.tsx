@@ -93,6 +93,7 @@ export const KanbanBoard = ({ id, children, className }: KanbanBoardProps) => {
 export type KanbanCardProps<T extends KanbanItemProps = KanbanItemProps> = T & {
     children?: ReactNode;
     className?: string;
+    dialogOpen?: boolean;
 };
 
 export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
@@ -117,7 +118,7 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
 
     const [isPointerDown, setIsPointerDown] = useState(false);
 
-    const pointerDownPos = useRef<{x:number,y:number}|null>(null);
+    // const pointerDownPos = useRef<{ x: number; y: number } | null>(null);
 
     // Handle pointer down/up for "clicking" vs "dragging"
     const handlePointerDown = () => setIsPointerDown(true);
@@ -139,7 +140,10 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
         // Allow Enter or Space to open dialog (only if not dragging)
         if ((!isDragging && e.key === "Enter") || e.key === " ") {
             e.preventDefault();
-            onclick
+            const element = e.currentTarget.querySelector('[role="button"]'); //pinpoint which card to open
+            if (element instanceof HTMLElement) {
+                element.click();
+            }
         }
     };
 
@@ -170,7 +174,7 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
                 tabIndex={0} // focusable for keyboard open
                 onKeyDown={handleKeyDown}
                 onPointerDown={handlePointerDown}
-                onPointerUp={handlePointerUp}
+                onPointerOver={handlePointerUp}
                 onPointerCancel={handlePointerUp}
             >
                 {/* sortable item card in its list position */}
@@ -181,9 +185,12 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
                         //     "pointer-events-none cursor-grabbing opacity-30",
                         "gap-4 rounded-md p-3 shadow-sm select-none transition-colors",
                         // Handle cursor state logic:
-                        isDragging
+                        // - if isDragging, set cursor to "grabbing" and opacity to 30%
+                        // - if isPointerDown, set cursor to "grab"
+                        // - otherwise, set cursor to "pointer"
+                        isDragging //if dragging, automatically set cursor to "grabbing"
                             ? "cursor-grabbing opacity-30 pointer-events-none"
-                            : isPointerDown
+                            : isPointerDown //if pointer is not dragging, check if pointer is held down. If it is, set cursor to "grab", else set to "pointer"
                             ? "cursor-grab"
                             : "hover:cursor-pointer cursor-pointer",
                         className
@@ -238,10 +245,7 @@ export const KanbanCards = <T extends KanbanItemProps = KanbanItemProps>({
         <ScrollArea className="overflow-hidden">
             <SortableContext items={items}>
                 <div
-                    className={cn(
-                        "flex flex-grow flex-col gap-2 p-2",
-                        className
-                    )}
+                    className={cn("flex grow flex-col gap-2 p-2", className)}
                     {...props}
                 >
                     {filteredData.map(children)}
