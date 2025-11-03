@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { Dialog, DialogTrigger, type DialogProps } from "@radix-ui/react-dialog"
-import { Circle, File, Laptop, Moon, SearchIcon, Sun } from "lucide-react"
+import { Circle, File, Laptop, Link, Moon, SearchIcon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 
 import { commandConfig } from "@/config/commands"
