@@ -40,8 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# rust for some reason
+# Rust target folder for some reason
 /target
 
-# do not include SQL files (for now)
+# Do not include SQL files (for now)
 *.sql
