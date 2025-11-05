@@ -1,0 +1,65 @@
+[
+    {
+        "id": "airplane",
+        "label": "Airplane",
+        "src": "/audio/airplane.mp3",
+        "icon": "Plane"
+    },
+    {
+        "id": "cafe",
+        "label": "Cafe",
+        "src": "/audio/cafe1.mp3",
+        "icon": "Coffee"
+    },
+    {
+        "id": "cicadas",
+        "label": "Cicadas",
+        "src": "/audio/cicadas.mp3"
+    },
+    {
+        "id": "dryer",
+        "label": "Dryer",
+        "src": "/audio/dryer.mp3"
+    },
+    {
+        "id": "fireplace",
+        "label": "Fireplace",
+        "src": "/audio/fireplace1.mp3",
+        "icon": "FlameKindling"
+    },
+    {
+        "id": "fountain",
+        "label": "Fontaine (Fountain)",
+        "src": "/audio/fountain.mp3"
+    },
+    {
+        "id": "ocean-1",
+        "label": "Ocean 1",
+        "src": "/audio/ocean1.mp3"
+    },
+    {
+        "id": "ocean-2",
+        "label": "Ocean 2",
+        "src": "/audio/ocean2.mp3"
+    },
+    {
+        "id": "rain",
+        "label": "Rain",
+        "src": "/audio/rain1.mp3"
+    },
+    {
+        "id": "thunder-1",
+        "label": "Thunder 1",
+        "src": "/audio/thunder1.mp3"
+    },
+    {
+        "id": "thunder-2",
+        "label": "Thunder 2",
+        "src": "/audio/thunder2.mp3"
+    },
+    {
+        "id": "white-noise",
+        "label": "White Noise",
+        "src": "/audio/whitenose1.mp3"
+    }
+]
