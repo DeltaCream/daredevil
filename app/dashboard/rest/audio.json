@@ -14,48 +14,56 @@
     {
         "id": "cicadas",
         "label": "Cicadas",
-        "src": "/audio/cicadas.mp3"
+        "src": "/audio/cicadas.mp3",
+        "icon": "BugFilled"
     },
     {
         "id": "dryer",
         "label": "Dryer",
-        "src": "/audio/dryer.mp3"
+        "src": "/audio/dryer.mp3",
+        "icon": "Scissor"
     },
     {
         "id": "fireplace",
         "label": "Fireplace",
         "src": "/audio/fireplace1.mp3",
-        "icon": "FlameKindling"
+        "icon": "FlameFilled"
     },
     {
         "id": "fountain",
         "label": "Fontaine (Fountain)",
-        "src": "/audio/fountain.mp3"
+        "src": "/audio/fountain.mp3",
+        "icon": "FountainFilled"
     },
     {
         "id": "ocean-1",
         "label": "Ocean 1",
-        "src": "/audio/ocean1.mp3"
+        "src": "/audio/ocean1.mp3",
+        "icon": "Ripple"
     },
     {
         "id": "ocean-2",
         "label": "Ocean 2",
-        "src": "/audio/ocean2.mp3"
+        "src": "/audio/ocean2.mp3",
+        "icon": "Ripple"
     },
     {
         "id": "rain",
         "label": "Rain",
-        "src": "/audio/rain1.mp3"
+        "src": "/audio/rain1.mp3",
+        "icon": "CloudRain"
     },
     {
         "id": "thunder-1",
         "label": "Thunder 1",
-        "src": "/audio/thunder1.mp3"
+        "src": "/audio/thunder1.mp3",
+        "icon": "CloudBolt"
     },
     {
         "id": "thunder-2",
         "label": "Thunder 2",
-        "src": "/audio/thunder2.mp3"
+        "src": "/audio/thunder2.mp3",
+        "icon": "CloudBolt"
     },
     {
         "id": "white-noise",
