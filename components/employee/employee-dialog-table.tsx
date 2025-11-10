@@ -54,7 +54,7 @@ export const columns: ColumnDef<Tasks>[] = [
         cell: ({ row }) => {
             const { name, link } = row.original;
             return (
-                <Link href={link} className="text-blue-600 underline">
+                <Link href={link} target="_blank" className="text-blue-600 underline">
                     {name}
                 </Link>
             );
