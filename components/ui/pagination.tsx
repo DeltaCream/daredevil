@@ -1,5 +1,3 @@
-
-
 import * as React from "react"
 import {
   ChevronLeftIcon,
@@ -8,8 +6,7 @@ import {
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button, buttonVariants } from "@/components/ui/button"
-import Link from "next/link" //needed to change from <a> to Next.js <Link>
+import { buttonVariants, type Button } from "@/components/ui/button"
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -43,7 +40,7 @@ function PaginationItem({ ...props }: React.ComponentProps<"li">) {
 type PaginationLinkProps = {
   isActive?: boolean
 } & Pick<React.ComponentProps<typeof Button>, "size"> &
-  React.ComponentProps<typeof Link>
+  React.ComponentProps<"a">
 
 function PaginationLink({
   className,
@@ -52,7 +49,7 @@ function PaginationLink({
   ...props
 }: PaginationLinkProps) {
   return (
-    <Link
+    <a
       aria-current={isActive ? "page" : undefined}
       data-slot="pagination-link"
       data-active={isActive}
