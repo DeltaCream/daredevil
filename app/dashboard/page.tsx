@@ -132,7 +132,16 @@ const exampleCardData = [
   },
 ];
 
-export default function Page() {
+export default async function Page() {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get("session")?.value;
+  const user = sessionCookie;
+  // ? await getUserFromSession(sessionCookie) : null;
+
+  if (!user) {
+    // if no user, redirect to login (or show guest view)
+    redirect("/login");
+  }
   return (
     <SidebarProvider
       style={
