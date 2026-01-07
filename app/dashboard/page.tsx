@@ -138,10 +138,10 @@ export default async function Page() {
   const user = sessionCookie;
   // ? await getUserFromSession(sessionCookie) : null;
 
-  if (!user) {
-    // if no user, redirect to login (or show guest view)
-    redirect("/login");
-  }
+  // if (!user) {
+  //   // if no user, redirect to login (or show guest view)
+  //   redirect("/login");
+  // }
   return (
     <SidebarProvider
       style={
