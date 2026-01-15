@@ -1,21 +1,9 @@
 /// From shadcn/ui
 import { AppSidebar } from "@/components/app-sidebar";
-import {
-    ChartAreaInteractive,
-    description,
-} from "@/components/chart-area-interactive";
-import { DataTable } from "@/components/data-table";
-import { SectionCards } from "@/components/section-cards";
 import { DashboardHeader } from "@/components/dashboard-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-
-import data from "./data.json";
-
 import { faker } from "@faker-js/faker";
-
-import { EmployeeChartArea } from "@/components/employee/employee-chart-area";
 import EmployeeKanban from "@/components/employee/employee-kanban";
-import { id } from "zod/v4/locales";
 
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -32,28 +20,11 @@ type User = {
     id: string;
     name: string;
     image: string;
-};
-
-type Feature = {
-    id: string;
-    name: string;
     remarks: string;
     column: string;
-    owner: User;
 };
 
-// columns are already mapped to valid statuses, so this mapping is no longer needed
-
 let columns = [
-    // { id: faker.string.uuid(), name: "Sean", status: "idle" },
-    // { id: faker.string.uuid(), name: "Renz", color: "#F59E0B", status: "online"},
-    // { id: faker.string.uuid(), name: "Rommel", color: "#10B981", status: "online"},
-    // { id: faker.string.uuid(), name: "Mehraj", color: "#10B981", status: "offline"},
-    // { id: faker.string.uuid(), name: "Jay", color: "#10B981", status: "pending" },
-    // { id: faker.string.uuid(), name: "Available", status: "online"},
-    // { id: faker.string.uuid(), name: "Not Available", status: "offline"},
-    // { id: faker.string.uuid(), name: "Frontend", status: "idle"},
-    // { id: faker.string.uuid(), name: "Backend", status: "pending"},
     { id: faker.string.uuid(), name: "Busy", status: "offline" },
     { id: faker.string.uuid(), name: "Nearing Availability", status: "idle" },
     { id: faker.string.uuid(), name: "Available", status: "online" },
@@ -78,26 +49,6 @@ columns = columns.map((column) => {
 
     return { ...column, status: newStatus };
 });
-
-const users = Array.from({ length: 4 })
-    .fill(null)
-    .map(() => ({
-        id: faker.string.uuid(),
-        name: faker.person.fullName(),
-        image: faker.image.avatar(),
-    }));
-
-const exampleFeatures = Array.from({ length: 20 })
-    .fill(null)
-    .map(() => ({
-        id: faker.string.uuid(),
-        name: capitalize(faker.person.fullName()),
-        // startAt: faker.date.past({ years: 0.5, refDate: new Date() }),
-        // endAt: faker.date.future({ years: 0.5, refDate: new Date() }),
-        remarks: faker.lorem.sentence(),
-        column: faker.helpers.arrayElement(columns).id,
-        owner: faker.helpers.arrayElement(users),
-    }));
 
 //data needed:
 /*
@@ -142,7 +93,67 @@ const exampleCardData = [
     },
 ];
 
-export default function Page() {
+async function getTableData(): Promise<User[]> {
+    return [
+        {
+            id: "1000",
+            name: "Rian",
+            image: faker.image.avatar(),
+            remarks: "Sample Text",
+            column: "Present", // All start in Present
+        },
+        {
+            id: "2000",
+            name: "John",
+            image: faker.image.avatar(),
+            remarks: "They call him cute",
+            column: "Present",
+        },
+        {
+            id: "3000",
+            name: "Lily",
+            image: faker.image.avatar(),
+            remarks: "Currently working on a project",
+            column: "Present",
+        },
+        {
+            id: "3300",
+            name: "Ryan",
+            image: faker.image.avatar(),
+            remarks: "About to be done with the project",
+            column: "Present",
+        },
+        {
+            id: "3750",
+            name: "Harry",
+            image: faker.image.avatar(),
+            remarks: "Somehow, he's not a potter",
+            column: "Present",
+        },
+        {
+            id: "4000",
+            name: "Luis",
+            image: faker.image.avatar(),
+            remarks: "Luis is a good person",
+            column: "Present",
+        },
+        {
+            id: "5000",
+            name: "William",
+            image: faker.image.avatar(),
+            remarks: "His name is William",
+            column: "Present",
+        },
+    ];
+}
+
+export default async function Page() {
+    const usersRaw = await getTableData();
+    const users = usersRaw.map((u) => ({
+        ...u,
+        // find the column by name and replace the user.column with the column id
+        column: columns.find((c) => c.name === u.column)?.id ?? columns[0].id,
+    }));
     return (
         <SidebarProvider
             style={
@@ -167,7 +178,7 @@ export default function Page() {
                             <EmployeeKanban
                                 columns={columns as Column[]}
                                 users={users as User[]}
-                                features={exampleFeatures as Feature[]}
+                                // features={exampleFeatures as Feature[]}
                             />
                             {/* <DataTable data={data} /> */}
                         </div>

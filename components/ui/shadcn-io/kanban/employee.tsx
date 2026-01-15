@@ -99,6 +99,7 @@ export type KanbanCardProps<T extends KanbanItemProps = KanbanItemProps> = T & {
 export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
     id,
     name,
+    column,
     children,
     className,
     dialogOpen,
@@ -111,7 +112,11 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
         transform,
         isDragging,
     } = useSortable({
-        id,
+        id: `${id}-${column}`, // Make the ID unique for each card instance
+        data: {
+            originalId: id,
+            column: column
+        },
         disabled: dialogOpen,
     });
     const { activeCardId } = useContext(KanbanContext) as KanbanContextProps;
@@ -205,7 +210,8 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
             </div>
 
             {/* duplicate overlay card that appears only while dragging */}
-            {activeCardId === id && (
+            {/* {activeCardId === id && (     */}
+            {activeCardId === `${id}-${column}` && (    
                 <t.In>
                     <Card
                         className={cn(
@@ -237,9 +243,20 @@ export const KanbanCards = <T extends KanbanItemProps = KanbanItemProps>({
     className,
     ...props
 }: KanbanCardsProps<T>) => {
-    const { data } = useContext(KanbanContext) as KanbanContextProps<T>;
-    const filteredData = data.filter((item) => item.column === props.id);
-    const items = filteredData.map((item) => item.id);
+    const { data, columns } = useContext(
+        KanbanContext
+    ) as KanbanContextProps<T>;
+
+    const currentColumn = columns.find((c) => c.id === props.id);
+
+    const filteredData =
+        currentColumn?.name === "Present"
+            ? data.map(item => ({
+                ...item,
+                assignedTo: data.find(u => u.id === item.id && u.column !== props.id)?.column || "Unassigned"
+            })) // Show all data in Present column with assignment info
+            : data.filter((item) => item.column === props.id); //this is the default filtering
+    const items = filteredData.map((item) => `${item.id}-${item.column}`);
 
     return (
         <ScrollArea className="overflow-hidden">
@@ -248,7 +265,7 @@ export const KanbanCards = <T extends KanbanItemProps = KanbanItemProps>({
                     className={cn("flex grow flex-col gap-2 p-2", className)}
                     {...props}
                 >
-                    {filteredData.map(children)}
+                    {filteredData.map((item) => children({ ...item, column: item.column }))}
                 </div>
             </SortableContext>
             <ScrollBar orientation="vertical" />
@@ -307,10 +324,12 @@ export const KanbanProvider = <
     );
 
     const handleDragStart = (event: DragStartEvent) => {
-        const card = data.find((item) => item.id === event.active.id);
-        if (card) {
-            setActiveCardId(event.active.id as string);
-        }
+        //  const card = data.find((item) => item.id === event.active.id);
+        // if (card) {
+        //     setActiveCardId(event.active.id as string);
+        // }
+        // Use the compound ID directly to set the active card
+        setActiveCardId(event.active.id as string);
         onDragStart?.(event);
     };
 
@@ -321,8 +340,12 @@ export const KanbanProvider = <
             return;
         }
 
-        const activeItem = data.find((item) => item.id === active.id);
-        const overItem = data.find((item) => item.id === over.id);
+        // Extract the original ID from the compound ID (id-column format)
+        const activeId = active.id.toString().split('-')[0];
+        const overId = over.id.toString().split('-')[0];
+
+        const activeItem = data.find((item) => item.id === activeId);
+        const overItem = data.find((item) => item.id === overId);
 
         if (!activeItem) {
             return;
@@ -334,17 +357,33 @@ export const KanbanProvider = <
             columns.find((col) => col.id === over.id)?.id ||
             columns[0]?.id;
 
-        if (activeColumn !== overColumn) {
-            let newData = [...data];
-            const activeIndex = newData.findIndex(
-                (item) => item.id === active.id
-            );
-            const overIndex = newData.findIndex((item) => item.id === over.id);
+        // Find the actual column objects for validation
+        const activeColumnObj = columns.find(col => col.id === activeColumn);
+        const overColumnObj = columns.find(col => col.id === overColumn);
 
-            newData[activeIndex].column = overColumn;
-            newData = arrayMove(newData, activeIndex, overIndex);
+        // Only allow drops if:
+        // 1. Moving from Present to any column
+        // 2. Moving from non-Present to non-Present
+        // 3. Moving within the same column
+        if (activeColumn === overColumn || 
+            activeColumnObj?.name === "Present" 
+            || (activeColumnObj?.name !== "Present" && overColumnObj?.name !== "Present")
+        ) {
+            if (activeColumn !== overColumn) {
+                let newData = [...data];
+                const activeIndex = newData.findIndex(
+                    (item) => item.id === activeId
+                );
+                const overIndex = newData.findIndex(
+                    (item) => item.id === overId
+                );
 
-            onDataChange?.(newData);
+                // Only update the card being dragged
+                newData[activeIndex].column = overColumn;
+                newData = arrayMove(newData, activeIndex, overIndex);
+
+                onDataChange?.(newData);
+            }
         }
 
         onDragOver?.(event);
